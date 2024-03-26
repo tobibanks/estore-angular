@@ -8,6 +8,17 @@ import { SidenavigationComponent } from './components/sidenavigation/sidenavigat
 import { ProductsComponent } from './components/products/products.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryService } from './services/category/category.service';
+import { CategoriesStoreItem } from './services/category/categories.storeItem';
+import { ProductsStoreItem } from './services/product/products.storeItem';
+import { ProductsService } from './services/product/products.service';
+import { RouterModule } from '@angular/router';
+import { HomeRoutingModule } from './home-routing.module';
+import { ProductsGalleryComponent } from './components/products-gallery/products-gallery.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CartStoreItem } from './services/cart/cart.storeItem';
+import { CartComponent } from './components/cart/cart.component';
+
 
 
 @NgModule({
@@ -16,13 +27,25 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     CatnavigationComponent,
     SidenavigationComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductsGalleryComponent,
+  ProductDetailsComponent,
+  CartComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule,
+    HomeRoutingModule
+  ],
+  providers: [
+    CategoryService, 
+    CategoriesStoreItem,
+    ProductsStoreItem,
+    ProductsService,
+    CartStoreItem
   ]
 })
 export class HomeModule { }

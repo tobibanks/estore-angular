@@ -4,27 +4,39 @@
             <h1>BPZ Store</h1>
         </div>
         <div class="p-0 my-4 w-50 h-25 bg-white">
-            <select class="dropdown p-0 m-0">
-                <option>Men</option>
-                <option>Women</option>
-                <option>Kids</option>
+            <ng-container *ngIf="displaySearch">
+            
+            <select #categoryOptions class="dropdown p-0 m-0">
+                <option *ngFor="let category of categoryStore.topLevelCategories$ | async"
+                value="{{category.id}}">
+                {{category.category}}
+            </option>
             </select>
-            <input class="form-control search-box" placeholder="Search" />
-            <button class="search-button"><fa-icon [icon]="faSearch"></fa-icon></button>
+            
+            <input #keyword class="form-control search-box" placeholder="Search" />
+            <button class="search-button" 
+             (click)="onClickSearch(keyword.value, categoryOptions.value)">
+            <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+        </ng-container>
         </div>
+        
         <div class="login-container p-0">
             <fa-icon [icon]="faUserCircle" class="user-icon"></fa-icon>
             <h5 href="#">Sign In</h5> / <h5 href="#">Register</h5>
         </div>
         <div class="cart-wishlist">
-            <ul class="p-0">
-                <li class="list-item">
-                    <fa-icon [icon]="faHeart"></fa-icon>
-                </li>
-                <li class="list-item">
-                    <fa-icon [icon]="faShoppingCart"></fa-icon>
-                </li>
-            </ul>
+          <div class="cart-wishlist p-0 list-item">
+            <button type="button" class="btn btn-dark position-relative" (click)="navigateToCart()">
+                <fa-icon [icon]="faShoppingCart"></fa-icon>
+                <ng-container *ngIf="cartStore.cart$ | async as cart">
+                 <span *ngIf="cart.totalProducts > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                    {{cart.totalProducts}}
+                </span>
+                </ng-container>
+               
+            </button>
+          </div>
         </div>
     </div>
 </div>
